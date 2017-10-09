@@ -11,3 +11,10 @@ export const sendPayment = paymentInfo => {
 		paymentInfo
 	}
 }
+
+export const updateOrder = order => {
+	return {
+		type: 'UPDATE_ORDER',
+		order
+	}
+}

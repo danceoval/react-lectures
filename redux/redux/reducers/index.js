@@ -21,6 +21,10 @@ export default (state = initialState, action) => {
 			newState.paymentInfo = action.paymentInfo;
 			break
 
+		case 'UPDATE_ORDER':
+			newState.order = action.order;
+			break
+
 		default:
 			return state
 	}

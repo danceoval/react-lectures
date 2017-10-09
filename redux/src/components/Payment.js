@@ -35,7 +35,7 @@ export default class extends Component {
         <ol>
         {
           Object.keys(this.props.order).map((item, i) => (
-            <div>
+            <div key={i}>
               <strong>{item}</strong> : <span>{this.props.order[item]}</span>
             </div>
           ))

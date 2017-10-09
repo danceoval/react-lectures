@@ -4,8 +4,8 @@ import {Switch, Route, Link} from 'React-Router-DOM';
 
 import ItemContainer from './ItemContainer';
 import Payment from './Payment';
-import store from '../redux/store';
-import {setItem, sendPayment} from '../redux/action-creators/actions';
+import store from '../../redux/store';
+import {setItem, sendPayment, updateOrder} from '../../redux/action-creators/actions';
 
 
 export default class extends Component {
@@ -25,19 +25,14 @@ export default class extends Component {
 
 	addItem(item) {
 
-		// let list = Object.keys(this.state.order);
-		// let newOrder = Object.assign({}, this.state.order);
-		// if(list.indexOf(item) != -1) {
-		// 	newOrder[item] += 1;
-		// 	this.setState({
-		// 		order: newOrder
-		// 	});
-		// } else {
-		// 	newOrder[item] = 1;
-		// 	this.setState({
-		// 		order : newOrder
-		// 	});
-		// }
+		let list = Object.keys(this.state.order);
+		let newOrder = Object.assign({}, this.state.order);
+		if(list.indexOf(item) != -1) {
+			newOrder[item] += 1;
+		} else {
+			newOrder[item] = 1;
+		}
+		store.dispatch(updateOrder(newOrder))
 
 	}
 
@@ -54,16 +49,16 @@ export default class extends Component {
 					<h1>A Somewhat {this.state.adj} Site</h1>
 					<div className="clearfix">
 						<nav className="big-block">
-	            <Link to="/books" >
-	              <button className="btn">Get Smart</button>
-	            </Link>
-	            <Link to="/sauces" className="btn">
-	              <button className="btn">Get Spicy</button>
-	            </Link>
-	            <Link to="/checkout" className="btn">
-	              <button className="btn">Checkout</button>
-	            </Link>
-          	</nav>
+				            <Link to="/books" >
+				              <button className="btn">Get Smart</button>
+				            </Link>
+				            <Link to="/sauces" className="btn">
+				              <button className="btn">Get Spicy</button>
+				            </Link>
+				            <Link to="/checkout" className="btn">
+				              <button className="btn">Checkout</button>
+				            </Link>
+			          	</nav>
 						<div className="block">	
 							<Switch >
 								<Route view="sauces" path="/sauces" render={() => <ItemContainer items={this.state.sauces} addItem={this.addItem} /> }/>
