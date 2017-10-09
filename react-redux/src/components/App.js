@@ -1,25 +1,21 @@
 //App
 import React, {Component} from 'react';
 import {Switch, Route, Link} from 'React-Router-DOM';
+import {connect} from 'react-redux';
 
 import ItemContainer from './ItemContainer';
 import Payment from './Payment';
 import {setItem, sendPayment, updateOrder} from '../../redux/action-creators/actions';
 
 
-export default class extends Component {
+class App extends Component {
 	constructor() {
 		super();
-		
-		this.state = store.getState();
-
-		this.addItem = this.addItem.bind(this);
-
 	}
 
 	handlePayment(info) {
 		console.log('what we will send', info)
-		store.dispatch(sendPayment(info))	
+		sendPayment(info)	
 	}
 
 	addItem(item) {
@@ -31,21 +27,14 @@ export default class extends Component {
 		} else {
 			newOrder[item] = 1;
 		}
-		store.dispatch(updateOrder(newOrder))
+		updateOrder(newOrder)
 
-	}
-
-	componentDidMount() {
-		store.subscribe(() => {
-			this.setState(store.getState())
-		})
 	}
 
 	render() {
-		
 		return (
 				<div>	
-					<h1>A Somewhat {this.state.adj} Site</h1>
+					<h1>A Somewhat Saucey Site</h1>
 					<div className="clearfix">
 						<nav className="big-block">
 				            <Link to="/books" >
@@ -60,10 +49,10 @@ export default class extends Component {
 			          	</nav>
 						<div className="block">	
 							<Switch >
-								<Route view="sauces" path="/sauces" render={() => <ItemContainer items={this.state.sauces} addItem={this.addItem} /> }/>
-								<Route view="books" path="/books" render={() => <ItemContainer items={this.state.books} addItem={this.addItem}  /> } />	
-								<Route view="checkout" path="/checkout" render={() => <Payment whenSubmitted={this.handlePayment} order={this.state.order}/> } />	
-								<Route view="all" path="/"  exact={true} render={() => <ItemContainer items={[...this.state.sauces, ...this.state.books]} addItem={this.addItem} /> } />	
+								<Route view="sauces" path="/sauces" render={() => <ItemContainer items={this.props.sauces} setItem={this.props.setItem} addItem={this.props.addItem} selectedItem={this.props.item}/> }/>
+								<Route view="books" path="/books" render={() => <ItemContainer items={this.props.books} setItem={this.props.setItem} addItem={this.props.addItem}  selectedItem={this.props.item} /> } />	
+								<Route view="checkout" path="/checkout" render={() => <Payment whenSubmitted={this.handlePayment} order={this.props.order}/> } />	
+								<Route view="all" path="/"  exact={true} render={() => <ItemContainer items={[...this.props.sauces, ...this.props.books]} setItem={this.props.setItem} addItem={this.props.addItem} selectedItem={this.props.item} /> } />	
 							</Switch>
 						</div>
 					</div>
@@ -71,5 +60,9 @@ export default class extends Component {
 		)
 	}
 
+}
 
-} 
+const mapState = ({item, sauces, books, order, paymentInfo}) => ({item, sauces, books, order, paymentInfo})
+const mapDispatch = { setItem, sendPayment, updateOrder }
+
+export default connect(mapState, mapDispatch)(App) 

@@ -1,5 +1,5 @@
 const initialState = {
-	selected : '',
+	item : '',
 	sauces : ['Franks', 'Tobasco', "Sriracha"],
 	books : ['1984', 'Ulysses', 'Kindred'],
 	order : {},
