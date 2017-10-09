@@ -20,5 +20,8 @@ module.exports = {
                 loaders: ['style', 'css', 'sass']
             }
         ]
+    },
+    devServer: {
+        historyApiFallback: true,
     }
 };

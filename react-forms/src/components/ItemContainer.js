@@ -12,7 +12,6 @@ export default class extends Component {
 		}
 
 		this.handleChange = this.handleChange.bind(this);
-		console.log("hello props", this.props)
 	}
 
 	handleChange(event) {
