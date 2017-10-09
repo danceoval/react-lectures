@@ -1,12 +1,12 @@
 //App
 import React, {Component} from 'react';
-import SauceContainer from './SauceContainer';
+import ItemContainer from './ItemContainer';
 
 export default class extends Component {
 	constructor() {
 		super();
 		this.state = {
-			sauceList : ["Franks", "Sriracha", "Tobasco"]
+			sauces : ["Franks", "Sriracha", "Tobasco"]
 		}
 	}
 
@@ -20,19 +20,12 @@ export default class extends Component {
 	}
 
 	render() {
-		//console.log("state", this.state)
 		return (
 			<div>	
 				<h1>A Somewhat {this.state.adj} Site</h1>
 				<div className="clearfix">
 					<div className="block">
-						<SauceContainer sauces={this.state.sauceList}/>
-					</div>
-					<div className="block">
-						<SauceContainer sauces={this.state.sauceList.slice(1,2)}/>
-					</div>
-					<div className="block">
-						<SauceContainer sauces={this.state.sauceList.slice(2)}/>
+						<ItemContainer items={this.state.sauces}/>
 					</div>
 				</div>
 			</div>

@@ -1,3 +1,4 @@
+//SaucePic.js
 import React from 'react';
 
 const backgroundImg = (item) => ({backgroundImage : `url(./src/assets/${item}.gif)`});
