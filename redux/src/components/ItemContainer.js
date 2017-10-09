@@ -3,49 +3,38 @@
 import React, {Component} from 'react';
 import ItemPic from './ItemPic';
 
-export default class extends Component {
-	constructor(props) {
-		super(props)
+export default (props) => {
+	console.log("PROPS", props)
+	const selected = props.selectedItem;
+	const setItem = props.setItem;
+	const items = props.items;
+	const addItem = props.addItem;
 
-		this.state = {
-			selectedItem : ''
-		}
-
-		this.handleChange = this.handleChange.bind(this);
-	}
-
-	handleChange(event) {
-		this.setState({
-			selectedItem : event.target.value
-		})
-	}
-
-
-	render() {
-		return(
-			<div className="item-container" >
+	return (
+		<div className="item-container" >
 				{
-					this.state.selectedItem ?	<ItemPic item={this.state.selectedItem}/> : <h2>Select an Item</h2>
+					selected ?	<ItemPic item={selected}/> : <h2>Select an Item</h2>
 				}
 				
 				<div >
 					<label>
 						Select a Product:
-						<select onChange={this.handleChange}>
+						<select onChange={(e) => setItem(e.target.value)}>
 							<option value=""></option>
 							{
-								this.props.items.map((item, idx) => {
+								items.map((item, idx) => {
 									return <option value={item} key={idx}>{item}</option>
 								})
 							}
 						</select>
 					</label>
 					{
-						this.state.selectedItem ?	<button className="btn" onClick={() => this.props.addItem(this.state.selectedItem)}>Add to Cart</button> : null
+						selected ?	<button className="btn" onClick={() => addItem(selected)}>Add to Cart</button> : null
 					}
 					
 				</div>
 			</div>
-		)
-	}
+
+	)
 }
+

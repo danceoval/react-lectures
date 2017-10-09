@@ -4,7 +4,6 @@ import {Switch, Route, Link} from 'React-Router-DOM';
 
 import ItemContainer from './ItemContainer';
 import Payment from './Payment';
-import store from '../../redux/store';
 import {setItem, sendPayment, updateOrder} from '../../redux/action-creators/actions';
 
 
@@ -14,7 +13,7 @@ export default class extends Component {
 		
 		this.state = store.getState();
 
-		this.addItem = this.addItem.bind(this)
+		this.addItem = this.addItem.bind(this);
 
 	}
 
@@ -42,12 +41,8 @@ export default class extends Component {
 		})
 	}
 
-	setItem(item) {
-		store.dispatch(setItem(item))
-	}
-
 	render() {
-		console.log("state", this.state)
+		
 		return (
 				<div>	
 					<h1>A Somewhat {this.state.adj} Site</h1>
@@ -65,10 +60,10 @@ export default class extends Component {
 			          	</nav>
 						<div className="block">	
 							<Switch >
-								<Route view="sauces" path="/sauces" render={() => <ItemContainer items={this.state.sauces} setItem={this.setItem} addItem={this.addItem} selectedItem={this.state.item}/> }/>
-								<Route view="books" path="/books" render={() => <ItemContainer items={this.state.books} setItem={this.setItem} addItem={this.addItem}  selectedItem={this.state.item} /> } />	
+								<Route view="sauces" path="/sauces" render={() => <ItemContainer items={this.state.sauces} addItem={this.addItem} /> }/>
+								<Route view="books" path="/books" render={() => <ItemContainer items={this.state.books} addItem={this.addItem}  /> } />	
 								<Route view="checkout" path="/checkout" render={() => <Payment whenSubmitted={this.handlePayment} order={this.state.order}/> } />	
-								<Route view="all" path="/"  exact={true} render={() => <ItemContainer items={[...this.state.sauces, ...this.state.books]} setItem={this.setItem} addItem={this.addItem} selectedItem={this.state.item} /> } />	
+								<Route view="all" path="/"  exact={true} render={() => <ItemContainer items={[...this.state.sauces, ...this.state.books]} addItem={this.addItem} /> } />	
 							</Switch>
 						</div>
 					</div>
