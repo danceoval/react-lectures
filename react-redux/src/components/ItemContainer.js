@@ -1,35 +1,32 @@
-//SauceContainer
-
 import React, {Component} from 'react';
 import ItemPic from './ItemPic';
+import Payment from './Payment';
 
-export default ({selectedItem, setItem, items, addItem}) => {
-	console.log('**', setItem, items, addItem)
-	return (
-		<div className="item-container" >
+export default ({item, sauces, books, setItem, sendPayment}) => {
+	console.log(item ,sauces)
+	return(
+		<div>
 				{
-					selectedItem ?	<ItemPic item={selectedItem}/> : <h2>Select an Item</h2>
+					item ? <ItemPic item={item} /> : <h2>N/A</h2>
 				}
-				
-				<div >
-					<label>
-						Select a Product:
+				<div>
+					<label>	
+						Select an Item:
 						<select onChange={(e) => setItem(e.target.value)}>
-							<option value=""></option>
+							<option value="">None</option>
+							]
 							{
-								items.map((item, idx) => {
+								[...sauces, ...books].map((item, idx) => {
 									return <option value={item} key={idx}>{item}</option>
 								})
 							}
 						</select>
 					</label>
-					{
-						selectedItem ?	<button className="btn" onClick={() => addItem(selectedItem)}>Add to Cart</button> : null
-					}
-					
 				</div>
+				{
+					item ? <Payment whenSubmitted={sendPayment}/> : <div></div>
+				}
 			</div>
-
 	)
 }
 
