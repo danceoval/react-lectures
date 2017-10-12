@@ -30,31 +30,42 @@ export default class extends Component {
   }
 
   render () {
-
+    console.log('**!!', this.props.order)
     return(
-      <form id="credit-card-form" onSubmit={this.handleSubmit} >
-        <br />
-        <div>
-          <label>CCN: </label>
-          <input 
-            type="text"
-            name="ccn"
-            onChange={this.handleCCN}
-          />
-        </div>
-        <br />
-        <div>
-          <label>Card Type: </label>
-          <select type="text" name="type" onChange={this.handleType}>
-            <option></option>
-            <option>Visa</option>
-            <option>MasterCard</option>
-            <option>AmEx</option>
-          </select>
-        </div>
-        <br />
-        <button type='submit' >Submit Order</button>
-      </form>
+      <div>
+        {
+          Object.keys(this.props.order).map((item, i) => {
+            return (
+               <div key={i}>
+                <strong>{item}</strong> : <span>{this.props.order[item]}</span>
+              </div>  
+            )
+          })
+        }
+        <form id="credit-card-form" onSubmit={this.handleSubmit} >
+          <br />
+          <div>
+            <label>CCN: </label>
+            <input 
+              type="text"
+              name="ccn"
+              onChange={this.handleCCN}
+            />
+          </div>
+          <br />
+          <div>
+            <label>Card Type: </label>
+            <select type="text" name="type" onChange={this.handleType}>
+              <option></option>
+              <option>Visa</option>
+              <option>MasterCard</option>
+              <option>AmEx</option>
+            </select>
+          </div>
+          <br />
+          <button type='submit' >Submit Order</button>
+        </form>
+      </div>
 
     )
   }
