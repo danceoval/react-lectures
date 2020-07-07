@@ -15,6 +15,7 @@ export default class extends Component {
 	}
 
 	handleChange(event) {
+		console.log("the event", event.target.value)
 		this.setState({
 			selectedItem : event.target.value
 		})
@@ -31,7 +32,7 @@ export default class extends Component {
 				<div >
 					<label>
 						Select a Product:
-						<select onChange={this.handleChange}>
+						<select onChange={this.handleChange} onClick={(e) => console.log("CLICK", e.target)}>
 							<option value=""></option>
 							{
 								this.props.items.map((item, idx) => {

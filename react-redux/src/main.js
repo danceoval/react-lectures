@@ -10,9 +10,7 @@ require('../scss/main.scss');
 
 ReactDOM.render(
 	<Provider store={store}>
-	  <BrowserRouter>
 		 <App />
-	  </BrowserRouter>
 	</Provider>,
 document.getElementById('app')
 )
